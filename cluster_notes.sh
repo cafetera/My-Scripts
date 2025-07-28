@@ -42,7 +42,7 @@ for NODE in $NODES; do
         pct list | awk "NR>1 && \$2 == \"running\" {printf \"- 📦 %s (ID: %s) — running\\n\", \$3, \$1}" || echo "- None"
 
         echo -e "\n#### 🖥️ VMs"
-        qm list | awk "NR>1 && \$3 == \"running\" {printf \"- 🖥️ %s (ID: %s) — running\\n\", \$3, \$1}" || echo "- None"
+        qm list | awk "NR>1 && \$3 == \"running\" {printf \"- 🖥️ %s (ID: %s) — running\\n\", \$2, \$1}" || echo "- None"
         echo -e "\n---"
     ' 2>/dev/null)
 
@@ -64,7 +64,7 @@ echo -e "### 📝 Notes\n- ⏱️ Updated automatically via cron\n- 📅 Last up
     done < "$RAW"
 } > "$TEMP_FILE"
 
-# Append to /etc/pve/datacenter.cfg
+# Replace /etc/pve/datacenter.cfg
 cat "$TEMP_FILE" > /etc/pve/datacenter.cfg
 
 # Clean up
